@@ -20,7 +20,7 @@ const SignUp = () => {
 	
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		console.log('From handleSubmit', inputs)
+		// console.log('From handleSubmit', inputs)
 		await signup(inputs)
 	}
 	return (

@@ -7,7 +7,7 @@ const MessageInput = () => {
 	const {loading, sendMessage} = useSendMessage();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('Message', message);
+		// console.log('Message', message);
 		if (!message) return;
 		sendMessage(message);
 		setMessage('');

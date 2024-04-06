@@ -5,7 +5,7 @@ import toast from "react-hot-toast"
 const useSendMessage = () => {
     const [loading, setLoading] = useState(false)
     const { messages, setMessages, selectedConversation } = useConversationContext()
-    console.log('From useSendMessage', selectedConversation)
+    // console.log('From useSendMessage', selectedConversation)
 
     const sendMessage = async (message) => {
         setLoading(true)

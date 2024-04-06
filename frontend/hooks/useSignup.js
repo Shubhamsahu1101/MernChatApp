@@ -7,7 +7,7 @@ const useSignup = () => {
     const {setAuthUser} = useAuthContext();
 
     const signup = async ({ fullName, username, password, confirmPassword, gender }) => {
-        console.log('Data to signup', { fullName, username, password, confirmPassword, gender })
+        // console.log('Data to signup', { fullName, username, password, confirmPassword, gender })
         // const success = checkInputs({ fullName, username, password, confirmPassword, gender })
         // if (!success) return;
 
@@ -20,7 +20,7 @@ const useSignup = () => {
             })
 
             const data = await res.json();
-            console.log('From useSignup', data);
+            // console.log('From useSignup', data);
             if(data.error){
                 throw new Error(data.error);
             }

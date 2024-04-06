@@ -1,11 +1,14 @@
 import Conversation from "../models/conversationModel.js";
 import Message from "../models/messageModel.js";
+import { getSocketId } from "../socket/socket.js";
+import { io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
     try {
         const { message } = req.body
         const { id: receiverId } = req.params
         const senderId = req.user._id
+        const authUser = req.user
 
         let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] }
@@ -23,6 +26,11 @@ export const sendMessage = async (req, res) => {
             message
         })
         conversation.messages.push(newMessage._id)
+
+        const receiverSocketId = getSocketId(receiverId)
+        if(receiverSocketId) {
+            io.to(receiverSocketId).emit('newMessage', newMessage, authUser.username, senderId)
+        }
 
         // await conversation.save()
         // await newMessage.save()
