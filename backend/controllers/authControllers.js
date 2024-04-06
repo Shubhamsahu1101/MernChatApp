@@ -4,10 +4,12 @@ import generateTokenAndSetCookie from '../utils/generateToken.js';
 
 export const signup = async (req, res) => {
     try {
+        console.log('In signup')
+
         const {fullName, username, password, confirmPassword, gender} = req.body;
 
-        if(password != confirmPassword){
-            return res.status(400).json({message: 'Passwords do not match'});
+        if(!fullName || !username || !password || !confirmPassword || !gender){
+            return res.status(400).json({message: 'All fields are required'});
         }
 
         const user = await User.findOne({username});
@@ -15,6 +17,14 @@ export const signup = async (req, res) => {
         if(user){
             return res.status(400).json({message: 'User already exists'});
         } 
+
+        if(password != confirmPassword){
+            return res.status(400).json({message: 'Passwords do not match'});
+        }
+
+        if(password.length < 6){
+            return res.status(400).json({message: 'Password must be at least 6 characters'});
+        }
 
         const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
         const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
